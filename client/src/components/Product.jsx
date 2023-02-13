@@ -7,7 +7,6 @@ const Product = ({
                      rating, category,
                      supply, stat
                  }) =>{
-    console.log(rating)
     const theme = useTheme();
     const [isExpanded, setIsExpanded] = useState(false);
 

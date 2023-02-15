@@ -22,10 +22,11 @@ import salesRoutes from "./routes/sales.js"
 /* Start Database Imports {{ */
 
 import User from "./models/User.js";
-import {dataUser, dataProduct, dataProductStat} from "./data/index.js";
+import {dataUser, dataProduct, dataProductStat, dataTransaction, dataOverallStat} from "./data/index.js";
 import Product from "./models/Proudct.js";
 import ProductStats from "./models/ProductStats.js";
-
+import Transactions from "./models/Transactions.js";
+import OverallStats from "./models/OverallStats.js";
 /* }} End Database Imports {{ */
 
 
@@ -56,8 +57,10 @@ app.use("/sales", salesRoutes);
     const PORT = process.env.PORT ?? 8000;
     try {
         mongoose.connect(process.env.MONGO_URL,()=>{
-            app.listen(PORT, ()=>{
-                console.log(`Server Running On Port ${PORT}` );
+            app.listen(PORT, async ()=>{
+                // await OverallStats.insertMany(dataOverallStat);
+                // await ProductStats.insertMany(dataProductStat);
+                console.log(`Server Running On Port ${PORT}`);
             })
         })
     } catch (e) {

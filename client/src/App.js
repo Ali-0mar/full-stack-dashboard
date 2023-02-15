@@ -7,7 +7,10 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
 import Products from "scenes/products";
-import Customers from "scenes/customers"
+import Customers from "scenes/customers";
+import Transactions from "scenes/Transactions"
+import Geography from "scenes/Geography";
+import Overview from "scenes/overview"
 function App() {
   const currentMode = useSelector((state)=>state.global.mode);
 const theme = useMemo(
@@ -25,6 +28,9 @@ const theme = useMemo(
               <Route path='/dashboard' element={< Dashboard />} />
               <Route path='/products' element={< Products />} />
               <Route path='/customers' element={< Customers />} />
+              <Route path='/transactions' element={< Transactions />} />
+              <Route path='/geography' element={< Geography />} />
+              <Route path='/overview' element={< Overview />} />
             </Route>
           </Routes>
         </ThemeProvider>

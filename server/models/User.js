@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -8,16 +8,16 @@ const userSchema = new mongoose.Schema(
             min: 2,
             max: 100,
         },
-        email:{
+        email: {
             type: String,
             required: true,
             max: 50,
-            unique: true
+            unique: true,
         },
-        password:{
+        password: {
             type: String,
             required: true,
-            min: 7,
+            min: 5,
         },
         city: String,
         state: String,
@@ -27,12 +27,12 @@ const userSchema = new mongoose.Schema(
         transactions: Array,
         role: {
             type: String,
-            enum: ['user', 'admin', 'superadmin'],
-            default: 'admin'
-        }
+            enum: ["user", "admin", "superadmin"],
+            default: "admin",
+        },
     },
-    {timestamps: true}
+    { timestamps: true }
 );
 
-const User =mongoose.model('user', userSchema);
+const User = mongoose.model("User", UserSchema);
 export default User;

@@ -1,5 +1,5 @@
 import React, {useMemo} from "react"
-import {Box, useTheme, } from "@mui/material";
+import { useTheme } from "@mui/material";
 import {ResponsiveLine} from "@nivo/line";
 import {useGetSalesQuery} from "../state/api";
 
@@ -44,6 +44,7 @@ const OverviewChart = ({isDashboard = false, view}) => {
     }
     return (
         <ResponsiveLine
+            data={view === 'sales' ? totalSalesLine : totalUnitsLine}
             theme={{
                 axis: {
                     domain: {
@@ -78,7 +79,6 @@ const OverviewChart = ({isDashboard = false, view}) => {
                     }
                 }
             }}
-            data={view === 'sales' ? totalSalesLine : totalUnitsLine}
             margin={{ top: 20, right: 50, bottom: 50, left: 70 }}
             xScale={{ type: 'point' }}
             yScale={{

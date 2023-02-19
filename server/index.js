@@ -19,17 +19,6 @@ import salesRoutes from "./routes/sales.js"
 
 /* }} End Routes Imports */
 
-/* Start Database Imports {{ */
-
-import User from "./models/User.js";
-import {dataUser, dataProduct, dataProductStat, dataTransaction, dataOverallStat} from "./data/index.js";
-import Product from "./models/Proudct.js";
-import ProductStats from "./models/ProductStats.js";
-import Transactions from "./models/Transactions.js";
-import OverallStats from "./models/OverallStats.js";
-/* }} End Database Imports {{ */
-
-
 /* Start Configurations {{ */
 
 dotenv.config();
@@ -59,7 +48,11 @@ app.use("/sales", salesRoutes);
         mongoose.connect(process.env.MONGO_URL,()=>{
             app.listen(PORT, async ()=>{
                 // await OverallStats.insertMany(dataOverallStat);
-                // await ProductStats.insertMany(dataProductStat);
+                // await AffiliateStat.insertMany(dataAffiliateStat);
+                // await Transactions.insertMany(dataTransaction)
+                // await ProductStats.insertMany(dataProductStat)
+                // await Product.insertMany(dataProduct)
+                // await User.insertMany(dataUser)
                 console.log(`Server Running On Port ${PORT}`);
             })
         })

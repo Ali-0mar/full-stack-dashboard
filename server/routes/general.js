@@ -1,7 +1,9 @@
 import express from "express";
-import {getUser, getUsers} from "../controllers/general.js"
+import {getUser, getDashboardStats} from "../controllers/general.js"
 const router = express.Router();
-router.get('/user/:id', getUser)
-router.get('/users', getUsers)
+
+router.get('/user/:id', getUser);
+router.get('/dashboard', getDashboardStats);
+
 
 export default router;

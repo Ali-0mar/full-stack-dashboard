@@ -1,17 +1,16 @@
 import React from 'react';
-import {
-    Box,
-    useTheme,
-} from "@mui/material";
-import {useGetCustomersQuery} from "../../state/api";
-import Header from "../../components/Header";
+import {Box, useTheme} from "@mui/material";
+import {useGetUserPerformanceQuery} from "../../state/api";
+import {useSelector} from "react-redux";
 import {DataGrid} from "@mui/x-data-grid";
-
-const Customers = () => {
+import Header from 'components/Header';
+import CustomColumnMenu from 'components/DataGridCustomMenu'
+const Performance = () => {
+    const userId = useSelector((state) => state.global.user)
+    console.log(userId)
+    const {data, isLoading} = useGetUserPerformanceQuery(userId);
+    console.log(data)
     const theme = useTheme();
-    console.log(theme)
-    const {data: customers } = useGetCustomersQuery();
-    console.log(customers);
     const columns = [
         {
             field: '_id',
@@ -19,42 +18,26 @@ const Customers = () => {
             flex: 1
         },
         {
-            field: 'name',
-            headerName: "Name",
-            flex: 0.5
-        },
-        {
-            field: 'email',
-            headerName: "E-mail",
+            field: 'userId',
+            headerName: "User ID",
             flex: 1
         },
         {
-            field: 'phoneNumber',
-            headerName: "Phone Number",
+            field: 'createdAt',
+            headerName: "Created At",
+            flex: 1
+        },
+        {
+            field: 'products',
+            headerName: "Number of Products",
             flex: 0.5,
-            renderCell: (params) => {
-                return params.value.replace(/^(\d{3})(\d{3})(\d{4})/,"($1)$2-$3")
-            }
-        },
-        {
-            field: 'country',
-            headerName: "Country",
-            flex: 0.4
-        },
-        {
-            field: 'occupation',
-            headerName: "Occupation",
-            flex: 1
-        },
-        {
-            field: 'role',
-            headerName: "Role",
-            flex: 0.5
-        },
+            sortable: false,
+            renderCell: (params) => params.value.length
+        }
     ]
     return (
         <Box m='1.5rem 2.5rem'>
-            <Header title='Customers' subTitle='List Of Customers'/>
+            <Header title='Performance' subTitle='Track Sales Performance'/>
             <Box
                 mt='40px'
                 height='75vh'
@@ -82,15 +65,21 @@ const Customers = () => {
                         color: `${theme.palette.secondary[200]} !important`,
                     },
 
-                        }}
+                }}
             >
                 <DataGrid
+                    loading={isLoading || !data}
                     columns={ columns }
-                    rows={customers || []}
+                    rows={(data && data.sales) || []}
+                    getRowId={(row) => row._id}
+                    components={{
+                        ColumnMenu: CustomColumnMenu
+                    }}
                 />
             </Box>
         </Box>
+
     )
 }
 
-export default Customers
+export default Performance

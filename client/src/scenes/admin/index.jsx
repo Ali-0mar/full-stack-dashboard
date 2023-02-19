@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-    Box,
-    useTheme,
-} from "@mui/material";
-import {useGetCustomersQuery} from "../../state/api";
-import Header from "../../components/Header";
+import {Box, useTheme} from "@mui/material";
+import {useGetAdminsQuery} from "../../state/api";
 import {DataGrid} from "@mui/x-data-grid";
-
-const Customers = () => {
+import Header from 'components/Header';
+import CustomColumnMenu from 'components/DataGridCustomMenu'
+const Admin = () => {
+    const {data, isLoading} = useGetAdminsQuery();
     const theme = useTheme();
-    console.log(theme)
-    const {data: customers } = useGetCustomersQuery();
-    console.log(customers);
     const columns = [
         {
             field: '_id',
@@ -54,7 +49,7 @@ const Customers = () => {
     ]
     return (
         <Box m='1.5rem 2.5rem'>
-            <Header title='Customers' subTitle='List Of Customers'/>
+            <Header title='Admins' subTitle='List Of Admins'/>
             <Box
                 mt='40px'
                 height='75vh'
@@ -82,15 +77,21 @@ const Customers = () => {
                         color: `${theme.palette.secondary[200]} !important`,
                     },
 
-                        }}
+                }}
             >
                 <DataGrid
+                    loading={isLoading || !data}
                     columns={ columns }
-                    rows={customers || []}
+                    rows={data || []}
+                    getRowId={(row) => row._id}
+                    components={{
+                        ColumnMenu: CustomColumnMenu
+                    }}
                 />
             </Box>
         </Box>
+
     )
 }
 
-export default Customers
+export default Admin
